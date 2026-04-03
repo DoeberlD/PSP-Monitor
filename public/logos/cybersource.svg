@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 50" fill="none">
+  <path d="M15 25c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12z" fill="#E31837" opacity="0.8"/>
+  <path d="M25 25c0-6.6 5.4-12 12-12s12 5.4 12 12-5.4 12-12 12-12-5.4-12-12z" fill="#F79E1B" opacity="0.8"/>
+  <text x="55" y="29" font-family="system-ui" font-weight="600" font-size="11" fill="#333">CS</text>
+</svg>

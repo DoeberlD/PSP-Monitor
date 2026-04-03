@@ -15,7 +15,7 @@ Payment Operations teams typically monitor 8-12 separate status pages to track P
 - **Auto-refresh** — Polls every 60 seconds with a visual countdown
 - **Responsive layout** — 3 columns desktop, 2 tablet, 1 mobile
 
-## Providers Integrated (6)
+## Providers Integrated (8)
 
 | Provider | Platform | API Type | CORS | Status |
 |----------|----------|----------|------|--------|
@@ -23,12 +23,15 @@ Payment Operations teams typically monitor 8-12 separate status pages to track P
 | Klarna | Statuspage.io | `/api/v2/summary.json` | Direct | Working |
 | Worldpay | Statuspage.io | `/api/v2/summary.json` | Direct | Working |
 | Square | Statuspage.io | `/api/v2/summary.json` | Direct | Working |
+| Visa Acceptance Solutions | Statuspage.io | `/api/v2/summary.json` | Direct | Working |
+| CyberSource (Visa) | Statuspage.io | `/api/v2/summary.json` | Direct | Working |
 | PayPal | Custom Node.js SPA | `/api/v1/components` + `/api/v1/events` | Proxied | Working |
 | Adyen | Custom Vue.js SPA | `/api/incident-messages/active` | Proxied | Working |
 
 ### Provider Notes
 
-- **Statuspage.io providers** (Stripe, Klarna, Worldpay, Square) use a standardized public JSON API with no authentication or rate limits. The adapter handles variations like Square's minimal response (no components/incidents arrays).
+- **Statuspage.io providers** (Stripe, Klarna, Worldpay, Square, Visa Acceptance Solutions, CyberSource) use a standardized public JSON API with no authentication or rate limits. The adapter handles variations like Square's minimal response (no components/incidents arrays).
+- **Visa Acceptance Solutions** and **CyberSource** provide indirect visibility into Visa's card network ecosystem. While Visa does not expose VisaNet status publicly, issues with card processing typically surface through these subsidiary status pages as well as through Stripe's "Acquirers and payment methods" and Adyen's "Payment methods and issuers" components.
 - **PayPal** uses a custom Node.js SPA with its own REST API (`/api/v1/`). Components and events are fetched separately. Includes Braintree, Venmo, Zettle, and Hyperwallet sub-products. Discovered by reverse-engineering the SPA's bundle.js to find internal API endpoints.
 - **Adyen** uses an incident-driven model — if no active incidents exist, all 6 components are operational. Severity levels (GREY/YELLOW/RED) are mapped to the normalized schema. Backend is Contentful CMS; rich text descriptions are extracted to plain text.
 
