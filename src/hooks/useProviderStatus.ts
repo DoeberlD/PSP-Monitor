@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { PSPProvider, ProviderState } from '../types';
 import { fetchProviderStatus } from '../adapters';
 
-const POLL_INTERVAL = 60_000;
+const POLL_INTERVAL = 180_000;
 
 export function useProviderStatus(provider: PSPProvider): ProviderState & { refresh: () => void } {
   const [state, setState] = useState<ProviderState>({

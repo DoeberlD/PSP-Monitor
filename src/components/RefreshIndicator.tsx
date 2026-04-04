@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const POLL_INTERVAL = 60;
+const POLL_INTERVAL = 180;
 
 export function RefreshIndicator() {
   const [secondsLeft, setSecondsLeft] = useState(POLL_INTERVAL);
