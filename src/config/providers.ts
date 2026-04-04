@@ -40,7 +40,7 @@ export const providers: PSPProvider[] = [
   {
     id: 'klarna',
     name: 'Klarna',
-    logo: '/logos/klarna.svg',
+    logo: '/logos/klarna.png',
     statusPageUrl: 'https://status.klarna.com',
     apiType: 'statuspage_io',
     apiBaseUrl: 'https://status.klarna.com/api/v2',
