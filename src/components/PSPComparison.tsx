@@ -66,7 +66,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Mollie', website: 'https://mollie.com', category: 'Direct PSP / Acquirer',
     hq: 'Netherlands (EU)', methodCount: 35, keyATMethods: ['EPS', 'Klarna', 'SEPA DD', 'Visa/MC', 'Apple Pay', 'Google Pay', 'Paysafecard'],
-    fees: '1.8% + \u20AC0.25 (EU cards), EPS \u20AC0.29', feesSource: 'mollie.com/pricing', feeScore: 6,
+    fees: '1.80%\u20132.90% + \u20AC0.25 (by card type)', feesSource: 'mollie.com/pricing', feeScore: 6,
     coverage: '35+ countries', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'REST, simple SDKs, dashboard-first',
     migrationEase: 'High', migrationNote: 'Easy onboarding, plugin ecosystem',
@@ -77,7 +77,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Worldline / Saferpay', website: 'https://worldline.com', category: 'Direct PSP / Acquirer',
     hq: 'France (EU)', methodCount: 200, keyATMethods: ['EPS', 'Klarna', 'Sofort', 'SEPA DD', 'Visa/MC', 'Apple Pay', 'Google Pay'],
-    fees: 'Custom (acquirer pricing)', feesSource: 'worldline.com', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'worldline.com', feeScore: 5,
     coverage: '50+ countries', uptimeSLA: '99.9%+', uptimeSource: 'Saferpay docs',
     authRateUplift: '\u2014', techStack: 'REST (Saferpay), legacy SOAP available',
     migrationEase: 'Low', migrationNote: 'Complex legacy stack, many sub-brands',
@@ -88,7 +88,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Nexi / Concardis', website: 'https://nexi.it', category: 'Direct PSP / Acquirer',
     hq: 'Italy (EU)', methodCount: 100, keyATMethods: ['Visa/MC', 'SEPA DD', 'Apple Pay', 'Google Pay'],
-    fees: 'Custom', feesSource: 'nexi.it', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'nexi.it', feeScore: 5,
     coverage: '25+ countries', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'REST, modernising',
     migrationEase: 'Low', migrationNote: 'Large acquirer, complex onboarding',
@@ -99,7 +99,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Checkout.com', website: 'https://checkout.com', category: 'Direct PSP / Acquirer',
     hq: 'UK', methodCount: 150, keyATMethods: ['EPS', 'Klarna', 'SEPA DD', 'Visa/MC', 'Apple Pay', 'Google Pay'],
-    fees: 'Interchange++ (enterprise)', feesSource: 'checkout.com', feeScore: 4,
+    fees: 'Quote-based', feesSource: 'checkout.com', feeScore: 4,
     coverage: '150+ currencies', uptimeSLA: '99.999% (target)', uptimeSource: 'checkout.com',
     authRateUplift: 'Intelligent Acceptance', techStack: 'REST, modern, Flow orchestration',
     migrationEase: 'Medium', migrationNote: 'Modern API, network tokenization',
@@ -121,7 +121,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Klarna', website: 'https://klarna.com', category: 'Direct PSP / Acquirer',
     hq: 'Sweden (EU)', methodCount: 5, keyATMethods: ['Klarna', 'Sofort'],
-    fees: 'Merchant-dependent, ~2-4% for BNPL', feesSource: 'klarna.com', feeScore: 7,
+    fees: '~2%\u20136% per transaction (BNPL)', feesSource: 'klarna.com', feeScore: 7,
     coverage: '45 markets', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'REST, SDKs, checkout widget',
     migrationEase: 'High', migrationNote: 'Often integrated via PSP, easy to add/remove',
@@ -144,7 +144,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Hobex', website: 'https://hobex.at', category: 'Local AT Specialist',
     hq: 'Austria', methodCount: 15, keyATMethods: ['Visa/MC', 'Apple Pay', 'Google Pay'],
-    fees: 'Custom (competitive for AT)', feesSource: 'hobex.at', feeScore: 5,
+    fees: '~1.9%\u20132.5% (estimated)', feesSource: 'hobex.at', feeScore: 5,
     coverage: 'Austria / DACH', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'Terminals + basic e-com API',
     migrationEase: 'Low', migrationNote: 'Primarily POS, limited e-com migration',
@@ -155,7 +155,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Unzer Austria (ex-mPAY24)', website: 'https://unzer.com/at', category: 'Local AT Specialist',
     hq: 'Austria / Germany', methodCount: 30, keyATMethods: ['EPS', 'Klarna', 'Sofort', 'Visa/MC', 'Apple Pay', 'Google Pay', 'SEPA DD'],
-    fees: 'Custom', feesSource: 'unzer.com', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'unzer.com', feeScore: 5,
     coverage: 'DACH + EU', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'REST (modernising from SOAP legacy)',
     migrationEase: 'Medium', migrationNote: 'SOAP legacy in some APIs, improving',
@@ -166,7 +166,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Qenta (ex-Wirecard CEE)', website: 'https://qenta.com', category: 'Local AT Specialist',
     hq: 'Austria', methodCount: 25, keyATMethods: ['EPS', 'Visa/MC', 'Sofort', 'SEPA DD'],
-    fees: 'Custom', feesSource: 'qenta.com', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'qenta.com', feeScore: 5,
     coverage: 'DACH / CEE', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'QPAY checkout, mid-modernity',
     migrationEase: 'Medium', migrationNote: 'Wirecard successor, moderate tooling',
@@ -177,7 +177,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'PAYONE', website: 'https://payone.com', category: 'Local AT Specialist',
     hq: 'Germany (Worldline JV)', methodCount: 60, keyATMethods: ['EPS', 'Klarna', 'Sofort', 'SEPA DD', 'Visa/MC', 'Apple Pay', 'Google Pay'],
-    fees: 'Custom (DACH competitive)', feesSource: 'payone.com', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'payone.com', feeScore: 5,
     coverage: 'DACH + EU', uptimeSLA: '\u2014', uptimeSource: '',
     authRateUplift: '\u2014', techStack: 'REST + Server API, Channel API',
     migrationEase: 'Medium', migrationNote: 'Good plugin ecosystem (Shopware, Magento)',
@@ -188,7 +188,7 @@ const PROVIDERS: Provider[] = [
   {
     name: 'Computop', website: 'https://computop.com', category: 'Local AT Specialist',
     hq: 'Germany', methodCount: 80, keyATMethods: ['EPS', 'Klarna', 'SEPA DD', 'Visa/MC', 'Apple Pay', 'Google Pay'],
-    fees: 'Custom (enterprise)', feesSource: 'computop.com', feeScore: 5,
+    fees: 'Quote-based', feesSource: 'computop.com', feeScore: 5,
     coverage: 'DACH + EU + global', uptimeSLA: '99.98%', uptimeSource: 'computop.com',
     authRateUplift: '\u2014', techStack: 'REST, Paygate platform',
     migrationEase: 'Medium', migrationNote: 'Enterprise, moderate complexity',
