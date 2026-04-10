@@ -417,6 +417,62 @@ export function PSPComparison() {
     setWeights((prev) => ({ ...prev, [key]: val }));
   }
 
+  function exportPDF() {
+    const rows = sorted.map((p) =>
+      `<tr style="border-bottom:1px solid #ddd">
+        <td style="padding:4px 6px;font-weight:600">${p.name}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.category}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.hq}</td>
+        <td style="padding:4px 6px;text-align:center">${p.methodCount}</td>
+        <td style="padding:4px 6px;font-size:10px">${p.keyATMethods.join(', ')}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.fees}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.techStack}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.migrationEase}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.gdpr === 'eu' ? 'EU-hosted' : p.gdpr === 'us' ? 'US parent' : 'Self-host'}</td>
+        <td style="padding:4px 6px;text-align:center">${p.supportScore > 0 ? p.supportScore + '/5' : '\u2014'}</td>
+        <td style="padding:4px 6px;text-align:center;font-weight:700">${p.score}</td>
+      </tr>`
+    ).join('');
+
+    const rankRows = ranked.slice(0, 10).map((p, i) =>
+      `<tr style="border-bottom:1px solid #ddd">
+        <td style="padding:4px 6px;font-weight:700">${i + 1}</td>
+        <td style="padding:4px 6px;font-weight:600">${p.name}</td>
+        <td style="padding:4px 6px;font-size:11px">${p.category}</td>
+        <td style="padding:4px 6px;text-align:center;font-weight:700">${p.score}</td>
+        <td style="padding:4px 6px;font-size:11px;color:green">${p.strengths.join(', ')}</td>
+        <td style="padding:4px 6px;font-size:11px;color:#c00">${p.weakness}</td>
+      </tr>`
+    ).join('');
+
+    const html = `<!DOCTYPE html><html><head><title>PayUptime \u2014 Austria PSP Comparison</title>
+      <style>body{font-family:system-ui,sans-serif;margin:20px;font-size:12px}
+      h1{font-size:18px}h2{font-size:14px;margin-top:24px}
+      table{border-collapse:collapse;width:100%;margin-top:8px}
+      th{background:#f3f4f6;padding:6px;text-align:left;font-size:11px;border-bottom:2px solid #ccc}
+      td{padding:4px 6px}p{color:#666;font-size:11px}
+      @page{size:landscape;margin:12mm}</style></head><body>
+      <h1>PayUptime \u2014 Austria PSP Comparison Report</h1>
+      <p>Generated ${new Date().toLocaleDateString()} | payuptime.com | Fees and features are indicative \u2014 verify with providers.</p>
+      <h2>Comparison Table (${sorted.length} providers)</h2>
+      <table><thead><tr>
+        <th>Provider</th><th>Category</th><th>HQ</th><th>Methods</th><th>Key AT Methods</th>
+        <th>Fees</th><th>Tech Stack</th><th>Migration</th><th>GDPR</th><th>Support</th><th>Score</th>
+      </tr></thead><tbody>${rows}</tbody></table>
+      <h2>Top 10 Ranking</h2>
+      <table><thead><tr>
+        <th>#</th><th>Provider</th><th>Category</th><th>Score</th><th>Strengths</th><th>Weakness</th>
+      </tr></thead><tbody>${rankRows}</tbody></table>
+      <p style="margin-top:16px;font-size:10px;color:#999">Disclaimer: This report is informational, not financial or legal advice. Data sourced from provider websites, Capterra, G2, Trustpilot, and GitHub.</p>
+      </body></html>`;
+
+    const win = window.open('', '_blank');
+    if (!win) return;
+    win.document.write(html);
+    win.document.close();
+    win.print();
+  }
+
   return (
     <main className="flex-1 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto py-6 space-y-6">
@@ -454,6 +510,12 @@ export function PSPComparison() {
             <input type="checkbox" checked={ossOnly} onChange={(e) => setOssOnly(e.target.checked)} className="rounded" />
             Open source only
           </label>
+          <button
+            onClick={exportPDF}
+            className="ml-auto px-3 py-1.5 text-xs rounded-md bg-blue-600 text-white hover:bg-blue-500 transition-colors"
+          >
+            Export PDF
+          </button>
         </div>
 
         {/* Table */}
@@ -477,7 +539,7 @@ export function PSPComparison() {
             <tbody>
               {sorted.map((p, i) => (
                 <tr key={p.name} className={`border-t border-gray-800 ${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-900/50'} hover:bg-gray-800/50`}>
-                  <td className="px-3 py-2.5 font-medium text-gray-200 whitespace-nowrap">
+                  <td className="px-3 py-2.5 font-medium text-gray-200 max-w-[120px]">
                     <a href={p.website} target="_blank" rel="noopener noreferrer" className="hover:text-blue-400">
                       {p.name}
                     </a>
@@ -495,7 +557,7 @@ export function PSPComparison() {
                       {p.keyATMethods.map((m) => <MethodBadge key={m} method={m} />)}
                     </div>
                   </td>
-                  <td className="px-3 py-2.5 text-xs text-gray-400 whitespace-nowrap" title={p.feesSource}>{p.fees}</td>
+                  <td className="px-3 py-2.5 text-xs text-gray-400 max-w-[140px]" title={p.feesSource}>{p.fees}</td>
                   <td className="px-3 py-2.5 text-xs text-gray-400">{p.techStack}</td>
                   <td className="px-3 py-2.5 text-xs text-gray-400" title={p.migrationNote}>
                     <span className={p.migrationEase === 'High' ? 'text-green-400' : p.migrationEase === 'Low' ? 'text-red-400' : 'text-yellow-400'}>
