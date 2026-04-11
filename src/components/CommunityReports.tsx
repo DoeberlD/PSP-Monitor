@@ -76,9 +76,8 @@ function LinkCardComponent({ card }: { card: LinkCard }) {
   return (
     <a
       href={card.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-lg p-4 hover:bg-gray-700/80 hover:border-gray-600 transition-colors group"
+      onClick={(e) => { e.preventDefault(); window.open(card.url, card.name, 'width=900,height=700,scrollbars=yes,resizable=yes'); }}
+      className="flex items-center gap-3 bg-gray-800 border border-gray-700 rounded-lg p-4 hover:bg-gray-700/80 hover:border-gray-600 transition-colors group cursor-pointer"
     >
       <img
         src={card.logo}
